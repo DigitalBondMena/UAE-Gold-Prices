@@ -4,7 +4,7 @@
         <div class="flex items-center justify-between mb-10">
             <app-section-title [title]="'الأقسام'"></app-section-title>
             <a routerLink="/departments"
-                class="flex items-center gap-2 text-[#3C2E00] font-medium text-lg hover:text-[#D0A51A] transition-colors">
+                class="flex items-center gap-2 text-[#3C2E00] font-medium text-lg hover:text-[#D0A51A] transition-colors underline">
                 <span>معرفة المزيد</span>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -16,128 +16,45 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Categories grid (right side) -->
             <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Card 1: Top Left - Fiqh -->
-                <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg">
-                    <div class="flex flex-col items-center justify-center h-full min-h-100">
-                        <div class="relative mb-4">
-                            <div
-                                class="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(208,165,26,0.8)]">
-                                <div
-                                    class="w-16 h-20 bg-linear-to-b from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                                    <span class="text-xs text-[#3C2E00] font-bold">فقة</span>
+                @for (department of departments(); track department.slug) {
+                    <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg">
+                        <div class="flex flex-col items-center justify-center h-full min-h-100">
+                            <div class="relative mb-4">
+                                <div class="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(208,165,26,0.8)] overflow-hidden">
+                                    <img [src]="department.main_image" [alt]="department.name" 
+                                        class="w-full h-full object-cover" />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Hover Overlay -->
-                    <div class="card-overlay">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="w-4 h-4 bg-[#D0A51A] rounded-full"></div>
-                            <h3 class="text-white text-2xl font-bold">فقة الذهب</h3>
-
-                        </div>
-                        <a routerLink="/department/fiqh"
-                            class="px-4 py-2 bg-[#00843D] text-white font-medium text-base rounded-xl flex items-center gap-2 transition duration-300 hover:bg-[#006B2E]">
-                            <span>عرض المقالات</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 2: Top Right - Gold Prices -->
-                <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg">
-                    <div class="flex flex-col items-center justify-center h-full min-h-100">
-                        <div class="relative mb-4">
-                            <div
-                                class="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(208,165,26,0.8)]">
-                                <div
-                                    class="w-16 h-20 bg-linear-to-b from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                                </div>
+                        <!-- Hover Overlay -->
+                        <div class="card-overlay">
+                            <div class="flex justify-center items-center gap-2">
+                                <div class="w-4 h-4 bg-[#D0A51A] rounded-full"></div>
+                                <h3 class="text-white text-2xl font-bold">{{ department.name }}</h3>
                             </div>
+                            <a [routerLink]="['/department', department.slug]"
+                                class="px-4 py-2 bg-[#00843D] text-white font-medium text-base rounded-xl flex items-center gap-2 transition duration-300 hover:bg-[#006B2E]">
+                                <span>عرض المقالات</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                    <!-- Hover Overlay -->
-                    <div class="card-overlay">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="w-4 h-4 bg-[#D0A51A] rounded-full"></div>
-                            <h3 class="text-white text-2xl font-bold">أسعار الذهب</h3>
-
-                        </div>
-                        <a routerLink="/department/gold-prices"
-                            class="px-4 py-2 bg-[#00843D] text-white font-medium text-base rounded-xl flex items-center gap-2 transition duration-300 hover:bg-[#006B2E]">
-                            <span>عرض المقالات</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 3: Bottom Left - Gas -->
-                <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg">
-                    <div class="flex flex-col items-center justify-center h-full min-h-100">
-                        <div class="relative mb-4">
-                            <div
-                                class="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(208,165,26,0.8)]">
-                                <div
-                                    class="w-16 h-20 bg-linear-to-b from-red-500 to-red-700 rounded-lg flex items-center justify-center">
-                                    <span class="text-white text-sm font-bold">غاز</span>
-                                </div>
-                            </div>
+                } @empty {
+                    <!-- Fallback cards when no data -->
+                    <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg animate-pulse">
+                        <div class="flex flex-col items-center justify-center h-full min-h-100">
+                            <div class="w-24 h-24 bg-gray-300 rounded-full"></div>
                         </div>
                     </div>
-                    <!-- Hover Overlay -->
-                    <div class="card-overlay">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="w-4 h-4 bg-[#D0A51A] rounded-full"></div>
-                            <h3 class="text-white text-2xl font-bold">أسعار الغاز</h3>
-
-                        </div>
-                        <a routerLink="/department/gas-prices"
-                            class="px-4 py-2 bg-[#00843D] text-white font-medium text-base rounded-xl flex items-center gap-2 transition duration-300 hover:bg-[#006B2E]">
-                            <span>عرض المقالات</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 4: Bottom Right - Fiqh -->
-                <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg">
-                    <div class="flex flex-col items-center justify-center h-full min-h-100">
-                        <div class="relative mb-4">
-                            <div
-                                class="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(208,165,26,0.8)]">
-                                <div
-                                    class="w-16 h-20 bg-linear-to-b from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-                                    <span class="text-xs text-[#3C2E00] font-bold">فقة</span>
-                                </div>
-                            </div>
+                    <div class="category-card bg-[#FFE066] rounded-2xl p-6 relative overflow-hidden shadow-lg animate-pulse">
+                        <div class="flex flex-col items-center justify-center h-full min-h-100">
+                            <div class="w-24 h-24 bg-gray-300 rounded-full"></div>
                         </div>
                     </div>
-                    <!-- Hover Overlay -->
-                    <div class="card-overlay">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="w-4 h-4 bg-[#D0A51A] rounded-full"></div>
-                            <h3 class="text-white text-2xl font-bold">أحكام الذهب</h3>
-
-                        </div>
-                        <a routerLink="/department/gold-rulings"
-                            class="px-4 py-2 bg-[#00843D] text-white font-medium text-base rounded-xl flex items-center gap-2 transition duration-300 hover:bg-[#006B2E]">
-                            <span>عرض المقالات</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                }
             </div>
             <!-- Advertisement placeholder (left side) -->
             <div class="lg:col-span-1 bg-gray-200 rounded-2xl flex items-center justify-center min-h-125">

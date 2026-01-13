@@ -1,25 +1,20 @@
 <section class="relative h-screen">
     <div class="container mx-auto px-5 lg:px-20 py-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 items-center  mt-10 ">
+        <div class="grid grid-cols-1 lg:grid-cols-2 items-center mt-10">
+            <div class="flex flex-col items-start justify-evenly h-full">
+                <app-section-title [title]="'من نحن'"></app-section-title>
 
-            
-            <div class="flex flex-col items-start justify-evenly h-full ">
-                <app-section-title [title]=" 'من نحن'"></app-section-title>
-
-                <p class="text-2xl font-medium mt-6 text-[#3C2E00] max-w-xl ">
-                    نوفّر متابعة سهلة لسوق الذهب عبر أسعار مباشرة وأخبار وتحليلات متجددة في مكان واحد. هدفنا أن نكون
-                    مصدر
-                    الثقة الأول في سوق المعادن الثمينة داخل الإمارات.
-                </p>
+                <div class="text-2xl font-medium mt-6 text-[#3C2E00] max-w-xl" [innerHTML]="aboutData()?.text ?? 'نوفّر متابعة سهلة لسوق الذهب عبر أسعار مباشرة وأخبار وتحليلات متجددة في مكان واحد. هدفنا أن نكون مصدر الثقة الأول في سوق المعادن الثمينة داخل الإمارات.'">
+                </div>
                 <div class="mt-6 lg:block hidden">
                     <app-app-button btnText="اقرأ المزيد" routerLink="/about-us"></app-app-button>
                 </div>
             </div>
 
             <!-- IMAGE WITH SOCIAL MEDIA -->
-            <div class=" pt-10 lg:pt-0 lg:mt-0 lg:ms-auto relative  h-full z-10!">
+            <div class="pt-10 lg:pt-0 lg:mt-0 lg:ms-auto relative h-full z-10!">
                 <!-- Social Media Strip -->
-                <div class="social-strip flex flex-col items-center justify-between ">
+                <div class="social-strip flex flex-col items-center justify-between">
                     <a href="#" class="social-icon" aria-label="Facebook">
                         <img src="images/icons/facebook.webp" alt="Facebook" width="24" height="24" />
                     </a>
@@ -35,8 +30,10 @@
                 </div>
                 
                 <!-- Image -->
-                <div class="clip h-125   md:w-full">
-                    <img src="images/about.png" alt="about" width="800" height="600" class="w-full h-full object-cover object-center rounded-3xl" />
+                <div class="clip h-125 md:w-full">
+                    <img [src]="aboutData()?.main_image ?? 'images/about.png'" alt="about" 
+                        width="800" height="600" 
+                        class="w-full h-full object-cover object-center rounded-3xl" />
                 </div>
             </div>
 
@@ -46,9 +43,8 @@
         </div>
     </div>
 
-
-    <div class="w-full mt-10 h-[100px] mb-10 ">
+    <div class="w-full mt-10 h-[100px] mb-10">
         <img src="images/section-end.webp" alt="decoration"
-            class="w-full absolute bottom-[-20%]! md:bottom-[-14%]! lg:bottom-[-5%]!  object-cover object-center" />
+            class="w-full absolute bottom-[-20%]! md:bottom-[-14%]! lg:bottom-[-5%]! object-cover object-center" />
     </div>
 </section>

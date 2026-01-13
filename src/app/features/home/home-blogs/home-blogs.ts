@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SectionTitle } from "../../../shared/components/section-title/section-title";
+import { SectionTitle } from '../../../shared/components/section-title/section-title';
+import { LatestBlog } from '../../../core/models/home.model';
 
 @Component({
   selector: 'app-home-blogs',
@@ -9,5 +10,5 @@ import { SectionTitle } from "../../../shared/components/section-title/section-t
   styleUrl: './home-blogs.css',
 })
 export class HomeBlogs {
-
+  blogs = input<LatestBlog[]>([]);
 }
