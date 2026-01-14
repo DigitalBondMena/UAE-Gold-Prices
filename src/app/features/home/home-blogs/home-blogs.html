@@ -15,8 +15,8 @@
         <!-- Articles Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for (blog of blogs(); track blog.slug) {
-                <article
-                    class="article-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <a [routerLink]="['/blog', blog.slug]"
+                    class="block article-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative">
                         <img [src]="blog.main_image" [alt]="blog.title" 
                             class="w-full h-64 object-cover" width="400" height="256" />
@@ -39,16 +39,15 @@
                         <h4 class="text-[#3C2E00] font-bold text-xl mb-4 leading-relaxed">
                             {{ blog.title }}
                         </h4>
-                        <a [routerLink]="['/blog', blog.slug]"
-                            class="text-[#00843D] font-medium text-base hover:underline inline-flex items-center gap-1">
+                        <span class="text-[#00843D] font-medium text-base inline-flex items-center gap-1">
                             <span>اقرأ المقالة</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
                                 </path>
                             </svg>
-                        </a>
+                        </span>
                     </div>
-                </article>
+                </a>
             } @empty {
                 <!-- Skeleton loading cards -->
                 @for (i of [1, 2, 3]; track i) {

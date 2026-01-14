@@ -1,0 +1,168 @@
+/* Search Section */
+.search-section {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.search-box {
+  transition: box-shadow 0.3s ease;
+}
+
+.search-box:focus-within {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #00843D;
+}
+
+.search-box input {
+  font-size: 1rem;
+  direction: rtl;
+}
+
+.search-box input::placeholder {
+  color: #9ca3af;
+}
+
+.search-btn {
+  min-width: 100px;
+}
+
+/* Responsive Search */
+@media (max-width: 640px) {
+  .search-box {
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+  
+  .search-box input {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-btn {
+    width: 100%;
+  }
+}
+
+/* Blog Cards */
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Category Badge - Top Right Corner */
+.category-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 0 16px 0 16px;
+  z-index: 5;
+}
+
+/* Line Clamp Utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Read More Link */
+.read-more {
+  position: relative;
+}
+
+.read-more::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #00843D;
+  transition: width 0.3s ease;
+}
+
+.read-more:hover::after {
+  width: 100%;
+}
+
+/* PrimeNG Paginator Customization */
+:host ::ng-deep .custom-paginator {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+:host ::ng-deep .custom-paginator .p-paginator-element {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin: 0 0.25rem;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .custom-paginator .p-paginator-element:hover {
+  background: #f5f5f5;
+  border-color: #D0A51A;
+  color: #3C2E00;
+}
+
+:host ::ng-deep .custom-paginator .p-paginator-element.p-highlight {
+  background: #00843D;
+  border-color: #00843D;
+  color: #fff;
+}
+
+:host ::ng-deep .custom-paginator .p-paginator-first,
+:host ::ng-deep .custom-paginator .p-paginator-prev,
+:host ::ng-deep .custom-paginator .p-paginator-next,
+:host ::ng-deep .custom-paginator .p-paginator-last {
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+}
+
+:host ::ng-deep .custom-paginator .p-paginator-first:hover,
+:host ::ng-deep .custom-paginator .p-paginator-prev:hover,
+:host ::ng-deep .custom-paginator .p-paginator-next:hover,
+:host ::ng-deep .custom-paginator .p-paginator-last:hover {
+  background: #f5f5f5;
+  border-color: #00843D;
+  color: #00843D;
+}
+
+/* Skeleton Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

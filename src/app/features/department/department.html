@@ -1,1 +1,118 @@
-<p>department works!</p>
+<app-hero-section
+  [title]="departmentName()"
+  subtitle="تابع أحدث المقالات والتحليلات حول أسواق الذهب والمعادن الثمينة"
+  [backgroundImage]="heroImage()">
+</app-hero-section>
+
+<!-- Search Section -->
+<section class="search-section bg-white">
+  <div class="container mx-auto px-5 lg:px-20 translate-y-[-50%]">
+    <div class="search-box flex items-center gap-3 bg-white rounded-xl px-6 py-4 max-w-4xl mx-auto shadow-2xl">
+      <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input 
+        type="text" 
+        placeholder="ما الموضوع الذي تريد معرفته؟"
+        class="flex-1 bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base"
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)"
+        (keyup.enter)="onSearch()" />
+      <button 
+        class="search-btn bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#006d32] transition-colors whitespace-nowrap"
+        (click)="onSearch()">
+        ابحث الآن
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Blogs Content Section -->
+<section class="py-16 lg:py-24 bg-[#BC99000A]">
+  <div class="container mx-auto px-5 lg:px-20">
+    
+    <div class="flex justify-start mb-10">
+      <app-section-title [title]="departmentName()"></app-section-title>
+    </div>
+
+    <!-- Blogs Grid - 2 Columns -->
+    @if (isLoading()) {
+      <!-- Skeleton Loading -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        @for (i of [1, 2, 3, 4]; track i) {
+          <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg animate-pulse">
+            <div class="w-full h-64 bg-gray-300"></div>
+            <div class="p-6">
+              <div class="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+              <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+              <div class="h-4 bg-gray-200 rounded w-2/3 mb-4"></div>
+              <div class="h-4 bg-gray-300 rounded w-1/3"></div>
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        @for (blog of blogs(); track blog.slug) {
+          <a [routerLink]="['/blog', blog.slug]" class="block blog-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
+            <div class="relative">
+              <img 
+                [src]="blog.main_image" 
+                [alt]="blog.title" 
+                class="w-full h-64 object-cover"
+                loading="lazy"
+                width="400" 
+                height="256" />
+              <!-- Category Badge -->
+              @if (blog.small_text) {
+                <div class="category-badge">
+                  <span>{{ blog.small_text }}</span>
+                </div>
+              }
+            </div>
+            <div class="p-6">
+              <h4 class="text-[#3C2E00] font-bold text-xl mb-3 leading-relaxed line-clamp-2">
+                {{ blog.title }}
+              </h4>
+              @if (blog.publish_at_ar) {
+                <p class="text-gray-500 text-sm mb-4 leading-relaxed line-clamp-3">
+                  تحليل شامل لاتجاهات أسعار الذهب عالمياً والعوامل الاقتصادية والجيوسياسية المؤثرة عليه مع نظرة مستقبلية...
+                </p>
+              }
+              <span class="read-more flex items-center gap-2 text-[#00843D] font-medium text-base">
+                <span>اقرأ المقالة</span>
+                <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+        } @empty {
+          <div class="col-span-full text-center py-16">
+            <div class="text-gray-400 mb-4">
+              <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-600 mb-2">لا توجد مقالات</h3>
+            <p class="text-gray-400">لم يتم العثور على مقالات في هذا القسم</p>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- PrimeNG Pagination -->
+    @if (totalRecords() > perPage()) {
+      <div class="pagination-wrapper flex justify-center mt-12">
+        <p-paginator
+          [first]="first()"
+          [rows]="perPage()"
+          [totalRecords]="totalRecords()"
+          (onPageChange)="onPageChange($event)"
+          [showFirstLastIcon]="true"
+          styleClass="custom-paginator">
+        </p-paginator>
+      </div>
+    }
+  </div>
+</section>

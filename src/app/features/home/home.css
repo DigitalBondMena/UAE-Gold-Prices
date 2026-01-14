@@ -37,7 +37,7 @@
 .hero-carousel ::ng-deep .p-carousel-prev,
 .hero-carousel ::ng-deep .p-carousel-next {
   color: white;
-  background: rgba(212, 175, 55, 0.3);
+  /* background: rgba(212, 175, 55, 0.3); */
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
@@ -90,27 +90,27 @@
 /* ============ Default style for ALL carousel cards ============ */
 /* Apply scale to ALL items by default, then override for first/last */
 .hero-carousel ::ng-deep .p-carousel-item .carousel-card {
-  transform: scale(0.8) perspective(800px) !important;
+  transform: scale(0.9) perspective(800px) !important;
   transform-origin: center center;
   border-radius: 20px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; */
 }
 
 /* ============ First Visible Item (Right side in RTL) ============ */
 /* Using class selector */
 .hero-carousel ::ng-deep .p-carousel-item.p-carousel-item-start .carousel-card {
-  transform: translateX(0) perspective(800px) rotateY(20deg) !important;
+  transform: scale(1.1) perspective(800px) rotateY(20deg) !important;
   transform-origin: left center;
   border-radius: 20px !important;
-  box-shadow: 12px 8px 35px rgba(0, 0, 0, 0.7) !important;
+  /* box-shadow: 12px 8px 35px rgba(0, 0, 0, 0.7) !important; */
 }
 
 /* Using data attribute selector */
 .hero-carousel ::ng-deep .p-carousel-item[data-p-carousel-item-start='true'] .carousel-card {
-  transform: translateX(0) perspective(800px) rotateY(20deg) !important;
+  transform: scale(1.1) perspective(800px) rotateY(20deg) !important;
   transform-origin: left center;
   border-radius: 20px !important;
-  box-shadow: 12px 8px 35px rgba(0, 0, 0, 0.7) !important;
+  /* box-shadow: 12px 8px 35px rgba(0, 0, 0, 0.7) !important; */
 }
 
 /* ============ Second Item (slight right tilt) ============ */
@@ -123,7 +123,7 @@
   transform: scale(0.8) perspective(800px) rotateY(10deg) !important;
   transform-origin: center center;
   border-radius: 20px !important;
-  box-shadow: 6px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  /* box-shadow: 6px 4px 20px rgba(0, 0, 0, 0.5) !important; */
 }
 
 /* Alternative for data attribute */
@@ -132,10 +132,10 @@
   .p-carousel-item[data-p-carousel-item-start='true']
   + .p-carousel-item-active:not([data-p-carousel-item-end='true'])
   .carousel-card {
-  transform: scale(0.8) perspective(800px) rotateY(10deg) !important;
+  transform: scale(0.9) perspective(800px) rotateY(10deg) !important;
   transform-origin: center center;
   border-radius: 20px !important;
-  box-shadow: 6px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  /* box-shadow: 6px 4px 20px rgba(0, 0, 0, 0.5) !important; */
 }
 
 /* ============ Third Item (slight left tilt) ============ */
@@ -144,10 +144,10 @@
   ::ng-deep
   .p-carousel-item-active:not(.p-carousel-item-start):has(+ .p-carousel-item-end)
   .carousel-card {
-  transform: scale(0.8) perspective(800px) rotateY(-10deg) !important;
+  transform: scale(0.9) perspective(800px) rotateY(-10deg) !important;
   transform-origin: center center;
   border-radius: 20px !important;
-  box-shadow: -6px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  /* box-shadow: -6px 4px 20px rgba(0, 0, 0, 0.5) !important; */
 }
 
 /* Alternative for browsers supporting :has() with data attributes */
@@ -157,25 +157,39 @@
       + .p-carousel-item[data-p-carousel-item-end='true']
     )
   .carousel-card {
-  transform: scale(0.8) perspective(800px) rotateY(-10deg) !important;
+  transform: scale(0.9) perspective(800px) rotateY(-10deg) !important;
   transform-origin: center center;
   border-radius: 20px !important;
-  box-shadow: -6px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  /* box-shadow: -6px 4px 20px rgba(0, 0, 0, 0.5) !important; */
 }
 
 /* ============ Last Visible Item (Left side in RTL) ============ */
 /* Using class selector */
 .hero-carousel ::ng-deep .p-carousel-item.p-carousel-item-end .carousel-card {
-  transform: translateX(0%) perspective(800px) rotateY(-20deg) !important;
+  transform: scale(1.1) perspective(800px) rotateY(-20deg) !important;
   transform-origin: right center;
   border-radius: 20px !important;
-  box-shadow: -12px 8px 35px rgba(0, 0, 0, 0.7) !important;
+  /* box-shadow: -12px 8px 35px rgba(0, 0, 0, 0.7) !important; */
 }
 
 /* Using data attribute selector */
 .hero-carousel ::ng-deep .p-carousel-item[data-p-carousel-item-end='true'] .carousel-card {
-  transform: translateX(0%) perspective(800px) rotateY(-20deg) !important;
+  transform: scale(1.1) perspective(800px) rotateY(-20deg) !important;
   transform-origin: right center;
   border-radius: 20px !important;
-  box-shadow: -12px 8px 35px rgba(0, 0, 0, 0.7) !important;
+  /* box-shadow: -12px 8px 35px rgba(0, 0, 0, 0.7) !important; */
+}
+
+/* ============================================
+   Mobile - Remove 3D Effects (1 visible item)
+   ============================================ */
+@media (max-width: 575px) {
+  .hero-carousel ::ng-deep .p-carousel-item .carousel-card,
+  .hero-carousel ::ng-deep .p-carousel-item.p-carousel-item-start .carousel-card,
+  .hero-carousel ::ng-deep .p-carousel-item.p-carousel-item-end .carousel-card,
+  .hero-carousel ::ng-deep .p-carousel-item[data-p-carousel-item-start='true'] .carousel-card,
+  .hero-carousel ::ng-deep .p-carousel-item[data-p-carousel-item-end='true'] .carousel-card {
+    transform: none !important;
+    transform-origin: center center !important;
+  }
 }

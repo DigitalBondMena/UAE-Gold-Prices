@@ -1,7 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, inject, NgZone, OnDestroy, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AppButton } from "../../../shared/components/app-button/app-button";
+import { AppButton } from '../../../shared/components/app-button/app-button';
+import { ApiService } from '../../services/api-service';
+import { API_END_POINTS } from '../../constant/ApiEndPoints';
+import { DepartmentListItem, DepartmentsListResponse } from '../../models/department.model';
 
 @Component({
   selector: 'app-navbar',
@@ -10,8 +13,12 @@ import { AppButton } from "../../../shared/components/app-button/app-button";
   styleUrl: './navbar.css'
 })
 export class Navbar implements OnInit, OnDestroy {
+  private apiService = inject(ApiService);
+  
   isScrolled = signal(false);
   isMobileMenuOpen = signal(false);
+  isMobileDepartmentsOpen = signal(false);
+  departments = signal<DepartmentListItem[]>([]);
   
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
@@ -20,6 +27,9 @@ export class Navbar implements OnInit, OnDestroy {
   private resizeHandler?: () => void;
 
   ngOnInit(): void {
+    // Fetch departments
+    this.loadDepartments();
+    
     if (this.isBrowser) {
       // Run scroll handler outside Angular's change detection to reduce reflow
       // this.throttledScrollHandler () => {
@@ -52,6 +62,18 @@ export class Navbar implements OnInit, OnDestroy {
     }
   }
 
+  loadDepartments(): void {
+    this.apiService.get<DepartmentsListResponse>(API_END_POINTS.DEPARTMENTS).subscribe({
+      next: (response) => {
+        if (response?.departments) {
+          // Filter only active departments
+          const activeDepartments = response.departments.filter(dept => dept.is_active === 1);
+          this.departments.set(activeDepartments);
+        }
+      }
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.isBrowser) {
       if (this.throttledScrollHandler) {
@@ -75,5 +97,10 @@ export class Navbar implements OnInit, OnDestroy {
 
   closeMobileMenu() {
     this.isMobileMenuOpen.set(false);
+    this.isMobileDepartmentsOpen.set(false);
+  }
+
+  toggleMobileDepartments() {
+    this.isMobileDepartmentsOpen.update(value => !value);
   }
 }

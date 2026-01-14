@@ -37,52 +37,23 @@ export class Home implements OnInit, OnDestroy {
   currentPage = signal(0);
   numVisible = signal(4);
 
-  // Fallback carousel items (when API has no data)
-  private readonly fallbackSlides: HeroSlide[] = [
-    { title: 'اتجاهات الذهب', small_text: '', main_image: '/images/hero/slider1.png', slug: '', publish_at_ar: '', is_active: true, hero_status: 1 },
-    { title: 'وقت الشراء؟', small_text: '', main_image: '/images/hero/slider2.png', slug: '', publish_at_ar: '', is_active: true, hero_status: 1 },
-    { title: 'تحليل الذهب اليوم', small_text: '', main_image: '/images/hero/slider3.png', slug: '', publish_at_ar: '', is_active: true, hero_status: 1 },
-    { title: 'دليلك الكامل لفهم حركة الذهب', small_text: '', main_image: '/images/hero/slider4.png', slug: '', publish_at_ar: '', is_active: true, hero_status: 1 },
-  ];
-
-  // Static fallback items
-  private readonly staticCarouselItems: CarouselItem[] = [
-    { title: 'اتجاهات الذهب', image: '/images/hero/slider1.png' },
-    { title: 'وقت الشراء؟', image: '/images/hero/slider2.png' },
-    { title: 'تحليل الذهب اليوم', image: '/images/hero/slider3.png' },
-    { title: 'دليلك الكامل لفهم حركة الذهب عالميًا وكيفية اتخاذ قرار', image: '/images/hero/slider4.png' },
-    { title: 'أسعار الذهب اليوم', image: '/images/hero/slider1.png' },
-    { title: 'توقعات أسعار الذهب', image: '/images/hero/slider2.png' },
-    { title: 'الاستثمار في الذهب', image: '/images/hero/slider3.png' },
-    { title: 'أخبار الذهب العالمية', image: '/images/hero/slider4.png' },
-  ];
-
   // Computed signals for each section
   bannerSection = computed<BannerSection | null>(() => this.homeData()?.bannerSection ?? null);
   
-  heroSlides = computed<HeroSlide[]>(() => {
-    const apiSlides = this.homeData()?.heroSection ?? [];
-    return apiSlides.length > 0 ? apiSlides : this.fallbackSlides;
-  });
+  heroSlides = computed<HeroSlide[]>(() => this.homeData()?.heroSection ?? []);
 
-  // Carousel items computed from API or fallback to static
+  // Carousel items computed from API
   // Ensures we have enough items to scroll by duplicating if needed
   carouselItems = computed<CarouselItem[]>(() => {
     const slides = this.heroSlides();
-    let items: CarouselItem[];
-    
-    if (slides.length > 0) {
-      items = slides.map(slide => ({
-        title: slide.title,
-        image: slide.main_image
-      }));
-    } else {
-      items = this.staticCarouselItems;
-    }
+    const items: CarouselItem[] = slides.map(slide => ({
+      title: slide.title,
+      image: slide.main_image
+    }));
     
     // If we have fewer items than needed for smooth scrolling, duplicate them
     const minItemsNeeded = 8; // At least 2x numVisible for smooth circular scroll
-    if (items.length < minItemsNeeded) {
+    if (items.length > 0 && items.length < minItemsNeeded) {
       const duplicatedItems = [...items];
       while (duplicatedItems.length < minItemsNeeded) {
         duplicatedItems.push(...items);
@@ -97,8 +68,8 @@ export class Home implements OnInit, OnDestroy {
   departments = computed<Department[]>(() => this.homeData()?.departments ?? []);
   latestBlogs = computed<LatestBlog[]>(() => this.homeData()?.latestBlogs ?? []);
 
-  // Default hero background (from API or fallback)
-  defaultHeroImage = computed(() => this.bannerSection()?.main_image ?? '/images/hero/hero.webp');
+  // Default hero background from API
+  defaultHeroImage = computed(() => this.bannerSection()?.main_image ?? '');
 
   // Computed signal for visible range
   visibleRange = computed(() => {

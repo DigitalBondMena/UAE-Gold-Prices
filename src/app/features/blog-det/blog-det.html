@@ -1,1 +1,155 @@
-<p>blog-det works!</p>
+<!-- Blog Hero Section -->
+@if (hasBlog()) {
+<section class="blog-hero-section" [style.background-image]="'url(' + heroImage() + ')'">
+    <div class="blog-hero-overlay"></div>
+    <div class="container h-full mx-auto px-5 lg:px-20 relative z-10">
+        <div class="blog-hero-content h-full flex items-center justify-center text-center" dir="rtl"></div>
+    </div>
+</section>
+}
+
+<!-- Loading State -->
+@if (isLoading()) {
+<section class="container mx-auto px-5 lg:px-20 py-12 md:py-20">
+    <div class="skeleton h-12 w-3/4 mb-8"></div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12" dir="rtl">
+        <div class="lg:col-span-1 space-y-6">
+            <div class="skeleton h-64 w-full rounded-2xl"></div>
+            <div class="skeleton h-48 w-full rounded-2xl"></div>
+            <div class="skeleton h-96 w-full rounded-2xl"></div>
+        </div>
+        <div class="lg:col-span-2 space-y-4">
+            <div class="skeleton h-6 w-full"></div>
+            <div class="skeleton h-6 w-5/6"></div>
+            <div class="skeleton h-6 w-full"></div>
+            <div class="skeleton h-6 w-4/5"></div>
+            <div class="skeleton h-6 w-full"></div>
+        </div>
+    </div>
+</section>
+}
+
+<!-- Blog Content Section -->
+@if (hasBlog()) {
+<section class="container mx-auto px-5 lg:px-20 py-12 md:py-20 section-pattern section-pattern-right">
+    <!-- Main Article Title -->
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3C2E00] mb-8 md:mb-12" dir="rtl">
+        {{ blog()?.title }}
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12" dir="rtl">
+        <!-- Sidebar - Right Side (First in RTL) -->
+        <div class="lg:col-span-1 space-y-8">
+            <!-- Table of Contents -->
+            <div class="sidebar-card bg-[#F9F9F9] border-none">
+                <div class="toc-container">
+                    <div class="flex flex-col items-start gap-3 mb-6">
+                        <h2 class="toc-title">محتويات المقالة</h2>
+                        <div>
+                            <img src="/images/underline.webp" alt="frame" class="w-[50px]  object-cover" width="100"
+                                height="100">
+                        </div>
+                    </div>
+
+                    <ul class="toc-list">
+                        @for (section of sections(); track section.id; let i = $index) {
+                        <li class="toc-item" [class.toc-item-active]="isSectionActive(i)"
+                            (click)="navigateToSection(i)">
+                            <span class="toc-number">{{ i + 1 }}</span>
+                            <span class="toc-text" [innerHTML]="section.title | safeHtml"></span>
+                            @if (isSectionActive(i)) {
+                            <span class="toc-active-bar"></span>
+                            }
+                        </li>
+                        } @empty {
+                        <li class="toc-item opacity-50">
+                            <span class="toc-text">لا توجد عناوين متاحة</span>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ad Section -->
+            <div class="ad-section">
+                <span>اعلان</span>
+            </div>
+
+            <!-- Related Blogs -->
+            @if (relatedBlogs().length > 0) {
+            <div class="sidebar-card bg-[#F9F9F9] border-none">
+                <div class="flex flex-col items-start gap-3 mb-6">
+                    <h2 class="toc-title"> مقالات مشابهة</h2>
+                    <div>
+                        <img src="/images/underline.webp" alt="frame" class="w-[50px]  object-cover" width="100"
+                            height="100">
+                    </div>
+                </div>
+
+                <div class="divide-y divide-gray-200">
+                    @for (related of relatedBlogs(); track related.slug) {
+                    <div class="related-blog-card flex gap-4 py-4 cursor-pointer" dir="rtl"
+                        (click)="navigateToRelatedBlog(related)">
+                        <!-- Image -->
+                        @if (related.image || related.main_image) {
+                        <div class="w-28 h-24 flex-shrink-0 overflow-hidden rounded-xl">
+                            <img [src]="related.image ? getResponsiveImageFromObject(related.image) : related.main_image"
+                                [alt]="related.title" class="w-full h-full object-cover" loading="lazy" width="112"
+                                height="96" />
+                        </div>
+                        }
+                        <!-- Text Content -->
+                        <div class="flex-1 flex flex-col justify-center">
+                            <h3
+                                class="text-base font-semibold text-[#3C2E00] line-clamp-3 hover:text-[#D0A51A] transition-colors mb-2 leading-relaxed">
+                                {{ related.title }}
+                            </h3>
+                            @if (related.publish_at_ar) {
+                            <div class="flex items-center gap-2 text-gray-400 text-sm">
+                                <img src="/images/calendar-days.webp" alt="calendar" class="w-4 h-4" width="16" height="16">
+                                <span>{{ related.publish_at_ar }}</span>
+                              
+                            </div>
+                            }
+                        </div>
+
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Article Content - Left Side (Second in RTL) -->
+        <div class="lg:col-span-2">
+            <div class="blog-content prose prose-lg max-w-none text-base md:text-lg text-[#3C2E00] leading-relaxed"
+                [innerHTML]="fullContent()"></div>
+        </div>
+    </div>
+</section>
+}
+
+<!-- Empty State -->
+@if (!isLoading() && !hasBlog()) {
+<section class="container mx-auto px-5 lg:px-20 py-20">
+    <div class="text-center">
+        <div class="text-gray-400 mb-4">
+            <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+            </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-600 mb-2">لم يتم العثور على المقالة</h3>
+        <p class="text-gray-400 mb-6">المقالة التي تبحث عنها غير متوفرة</p>
+        <a routerLink="/blogs"
+            class="inline-flex items-center gap-2 bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#006d32] transition-colors">
+            <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                </path>
+            </svg>
+            <span>العودة للمقالات</span>
+        </a>
+    </div>
+</section>
+}

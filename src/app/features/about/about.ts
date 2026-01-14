@@ -1,9 +1,9 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { HeroSection } from '../../shared/components/hero-section/hero-section';
-import { SectionTitle } from '../../shared/components/section-title/section-title';
-import { ApiService } from '../../core/services/api-service';
 import { API_END_POINTS } from '../../core/constant/ApiEndPoints';
 import { AboutResponse } from '../../core/models/about.model';
+import { ApiService } from '../../core/services/api-service';
+import { HeroSection } from '../../shared/components/hero-section/hero-section';
+import { SectionTitle } from '../../shared/components/section-title/section-title';
 
 @Component({
   selector: 'app-about',
@@ -24,10 +24,10 @@ export class About implements OnInit {
   message = computed(() => this.aboutData()?.messages?.text ?? '');
   why = computed(() => this.aboutData()?.why?.text ?? '');
 
-  // Hero section computed values
-  heroTitle = computed(() => this.bannerSection()?.title ?? 'بوابتك لفهم الذهب والفضة والمعادن بوضوح');
-  heroSubtitle = computed(() => this.bannerSection()?.text ?? 'اكتشف مقالات متجددة تغطي أسعار الذهب وحركة الأسواق ونصائح استثمارية تمنحك فهمًا أوضح للسوق.');
-  heroImage = computed(() => this.bannerSection()?.main_image ?? '/images/hero/hero.webp');
+  // Hero section computed values from API
+  heroTitle = computed(() => this.bannerSection()?.title ?? '');
+  heroSubtitle = computed(() => this.bannerSection()?.text ?? '');
+  heroImage = computed(() => this.bannerSection()?.main_image ?? '');
 
   ngOnInit(): void {
     this.fetchAboutData();
