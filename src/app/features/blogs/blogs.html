@@ -15,8 +15,8 @@
         type="text" 
         placeholder="ما الموضوع الذي تريد معرفته؟"
         class="flex-1 bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base"
-        [ngModel]="searchQuery()"
-        (ngModelChange)="searchQuery.set($event)"
+        [ngModel]="searchInput()"
+        (ngModelChange)="searchInput.set($event)"
         (keyup.enter)="onSearch()" />
       <button 
         class="search-btn bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#006d32] transition-colors whitespace-nowrap"
@@ -31,9 +31,38 @@
 <section class="py-16 lg:py-24 bg-[#BC99000A]">
   <div class="container mx-auto px-5 lg:px-20">
     
-    <div class="flex justify-start mb-10">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
       <app-section-title title="مقالاتنا"></app-section-title>
+      
+   
     </div>
+
+    <!-- Active Filters Display -->
+    @if (searchQuery() || selectedDepartment() !== 'all') {
+      <div class="active-filters flex items-center gap-3 mb-6 flex-wrap">
+        <span class="text-gray-500 text-sm">الفلاتر النشطة:</span>
+        @if (searchQuery()) {
+          <span class="filter-tag">
+            البحث: {{ searchQuery() }}
+            <button (click)="searchInput.set(''); searchQuery.set('')" class="mr-1 hover:text-red-500">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </span>
+        }
+        @if (selectedDepartment() !== 'all') {
+          <span class="filter-tag">
+            القسم: {{ selectedDepartment() }}
+            <button (click)="selectDepartment('all')" class="mr-1 hover:text-red-500">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </span>
+        }
+      </div>
+    }
 
     <!-- Blogs Grid - 2 Columns -->
     @if (isLoading()) {
@@ -53,7 +82,7 @@
       </div>
     } @else {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        @for (blog of blogs(); track blog.slug) {
+        @for (blog of blogs() | blogSearch:searchQuery():selectedDepartment(); track blog.slug) {
           <a [routerLink]="['/blog', blog.slug]" class="block blog-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
             <div class="relative">
               <img 
@@ -89,11 +118,16 @@
           <div class="col-span-full text-center py-16">
             <div class="text-gray-400 mb-4">
               <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-600 mb-2">لا توجد مقالات</h3>
-            <p class="text-gray-400">لم يتم العثور على مقالات</p>
+            <h3 class="text-xl font-bold text-gray-600 mb-2">لا توجد نتائج</h3>
+            <p class="text-gray-400 mb-4">لم يتم العثور على مقالات تطابق بحثك</p>
+            <button 
+              (click)="clearFilters()" 
+              class="text-[#00843D] font-medium hover:underline">
+              مسح الفلاتر وعرض الكل
+            </button>
           </div>
         }
       </div>
