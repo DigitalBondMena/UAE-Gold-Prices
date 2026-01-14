@@ -1,7 +1,7 @@
 <app-hero-section
-  title="المقالات والأخبار"
-  subtitle="تابع أحدث المقالات والتحليلات حول أسواق الذهب والمعادن الثمينة"
-  backgroundImage="/images/blog.png">
+  [title]="bannerSection()?.title ?? 'المقالات والأخبار'"
+  [subtitle]="bannerSection()?.text ?? 'تابع أحدث المقالات والتحليلات حول أسواق الذهب والمعادن الثمينة'"
+  [backgroundImage]="bannerSection()?.main_image ?? ''">
 </app-hero-section>
 
 <!-- Search Section -->

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { API_END_POINTS } from '../../core/constant/ApiEndPoints';
-import { BlogItem, BlogsResponse } from '../../core/models/blogs.model';
+import { BlogItem, BlogsBannerSection, BlogsResponse } from '../../core/models/blogs.model';
 import { ApiService } from '../../core/services/api-service';
 import { HeroSection } from '../../shared/components/hero-section/hero-section';
 import { SectionTitle } from '../../shared/components/section-title/section-title';
@@ -20,6 +20,7 @@ export class Blogs implements OnInit {
 
   // Data signals
   blogs = signal<BlogItem[]>([]);
+  bannerSection = signal<BlogsBannerSection | null>(null);
   isLoading = signal(true);
 
   // Search & Filter
@@ -51,6 +52,9 @@ export class Blogs implements OnInit {
 
     this.apiService.get<BlogsResponse>(endpoint).subscribe({
       next: (response) => {
+        if (response?.bannerSection) {
+          this.bannerSection.set(response.bannerSection);
+        }
         if (response?.blogs) {
           this.blogs.set(response.blogs.data);
           this.totalRecords.set(response.blogs.total);
