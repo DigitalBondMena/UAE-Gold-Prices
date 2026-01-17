@@ -196,17 +196,24 @@ export class Home implements OnInit, OnDestroy {
         if (response) {
           this.homeData.set(response);
           
-          // Inject preload link for LCP hero image during SSR
-          if (isPlatformServer(this.platformId) && response.bannerSection?.main_image) {
-            this.injectHeroImagePreload(response.bannerSection.main_image);
-          }
-          
-          // Preload carousel images before showing (both client and SSR)
-          if (isPlatformBrowser(this.platformId)) {
-            this.preloadCarouselImages(response.heroSection ?? []);
-          } else {
-            // On server, keep loading true - client will handle preloading
+          // During SSR: Inject preload links for LCP images
+          if (isPlatformServer(this.platformId)) {
+            // Preload hero background image
+            if (response.bannerSection?.main_image) {
+              this.injectImagePreload(response.bannerSection.main_image, 'high');
+            }
+            // Preload first 4 carousel images for LCP discovery
+            const carouselImages = response.heroSection?.slice(0, 4) ?? [];
+            carouselImages.forEach((slide, index) => {
+              if (slide.main_image) {
+                this.injectImagePreload(slide.main_image, index === 0 ? 'high' : 'auto');
+              }
+            });
+            // Keep loading true - client will handle actual preloading
             this.isLoading.set(true);
+          } else {
+            // On client: Preload carousel images before showing
+            this.preloadCarouselImages(response.heroSection ?? []);
           }
         }
       },
@@ -216,13 +223,15 @@ export class Home implements OnInit, OnDestroy {
     });
   }
 
-  // Inject preload link for hero image during SSR for LCP optimization
-  private injectHeroImagePreload(imageUrl: string): void {
+  // Inject preload link for images during SSR for LCP optimization
+  private injectImagePreload(imageUrl: string, priority: 'high' | 'auto' | 'low'): void {
     const link = this.document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
     link.href = imageUrl;
-    link.setAttribute('fetchpriority', 'high');
+    if (priority === 'high') {
+      link.setAttribute('fetchpriority', 'high');
+    }
     this.document.head.appendChild(link);
   }
 
