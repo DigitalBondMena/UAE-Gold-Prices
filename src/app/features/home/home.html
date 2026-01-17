@@ -9,13 +9,15 @@
                     <p-skeleton width="100%" height="100%" styleClass="!rounded-none" />
                 </div>
             }
-            <!-- Default Background -->
-            @if (!isLoading() && defaultHeroImage()) {
-                <img [src]="defaultHeroImage()" alt="hero background" 
-                    class="hero-bg absolute inset-0 w-full h-full object-center object-cover"
-                    [class.hidden-bg]="selectedImage()"
-                    width="1920" height="1080" fetchpriority="high" loading="eager" />
-            }
+            <!-- Default Background - Always in DOM for LCP discovery -->
+            <img [src]="defaultHeroImage() || 'images/hero/hero.webp'" 
+                alt="hero background" 
+                class="hero-bg absolute inset-0 w-full h-full object-center object-cover"
+                [class.hidden-bg]="selectedImage()"
+                [class.opacity-0]="isLoading()"
+                width="1920" height="1080" 
+                fetchpriority="high" 
+                loading="eager" />
             <!-- Previous Background (fading out) -->
             @if (previousImage()) {
                 <img [src]="previousImage()" alt="previous background" 

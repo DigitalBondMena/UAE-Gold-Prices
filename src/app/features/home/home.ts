@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Component, computed, effect, ElementRef, HostListener, inject, OnDestroy, OnInit, PLATFORM_ID, signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carousel, CarouselPageEvent } from 'primeng/carousel';
@@ -30,6 +30,7 @@ export class Home implements OnInit, OnDestroy {
   private readonly apiService = inject(ApiService);
   private readonly router = inject(Router);
   private readonly seoService = inject(SeoService);
+  private readonly document = inject(DOCUMENT);
 
   // ViewChild to access carousel component
   carousel = viewChild<Carousel>('heroCarousel');
@@ -193,12 +194,17 @@ export class Home implements OnInit, OnDestroy {
         if (response) {
           this.homeData.set(response);
           
+          // Inject preload link for LCP hero image during SSR
+          if (isPlatformServer(this.platformId) && response.bannerSection?.main_image) {
+            this.injectHeroImagePreload(response.bannerSection.main_image);
+          }
+          
           // Preload carousel images before showing
           if (isPlatformBrowser(this.platformId)) {
             this.preloadCarouselImages(response.heroSection ?? []);
           } else {
-            // On server, keep loading true to show skeleton
-            this.isLoading.set(true);
+            // On server, set loading false since data is available from TransferState
+            this.isLoading.set(false);
           }
         }
       },
@@ -206,6 +212,16 @@ export class Home implements OnInit, OnDestroy {
         this.isLoading.set(false);
       }
     });
+  }
+
+  // Inject preload link for hero image during SSR for LCP optimization
+  private injectHeroImagePreload(imageUrl: string): void {
+    const link = this.document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = imageUrl;
+    link.setAttribute('fetchpriority', 'high');
+    this.document.head.appendChild(link);
   }
 
   // Preload carousel images to prevent layout shift
