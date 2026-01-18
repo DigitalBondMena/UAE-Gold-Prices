@@ -1,0 +1,208 @@
+/* Currency Calculator Section */
+.currency-calc-section {
+  min-height: 60vh;
+}
+
+/* Calculator Card */
+.calc-card {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Currency Input Group */
+.currency-input-group {
+  direction: rtl;
+  min-height: 72px;
+}
+
+/* Amount Input */
+.amount-input {
+  direction: ltr;
+  font-feature-settings: 'tnum';
+}
+
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.amount-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Amount Display */
+.amount-display {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  direction: rtl;
+}
+
+/* Swap Button */
+.swap-btn {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.swap-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 132, 61, 0.2);
+}
+
+.swap-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.swap-btn:hover svg {
+  transform: rotate(180deg);
+}
+
+/* PrimeNG Dropdown Styling */
+:host ::ng-deep .currency-dropdown {
+  width: 100%;
+  flex: 1;
+}
+
+:host ::ng-deep .currency-dropdown .p-select {
+  width: 100%;
+  min-height: 44px;
+  border: none;
+  background: transparent;
+  direction: rtl;
+  box-shadow: none;
+}
+
+:host ::ng-deep .currency-dropdown .p-select:hover {
+  border-color: transparent;
+}
+
+:host ::ng-deep .currency-dropdown .p-select:focus,
+:host ::ng-deep .currency-dropdown .p-select.p-focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+:host ::ng-deep .p-select-label {
+  padding: 0.5rem;
+}
+
+:host ::ng-deep .p-select-dropdown {
+  padding: 0 0.5rem;
+}
+
+/* Green Color Classes */
+.text-green {
+  color: #00843D;
+}
+
+.text-green-dark {
+  color: #006B2E;
+}
+
+.bg-green {
+  background-color: #00843D;
+}
+
+.border-green {
+  border-color: #00843D;
+}
+
+/* Calculate Button */
+.calc-btn {
+  min-width: 200px;
+  box-shadow: 0 4px 20px rgba(0, 132, 61, 0.3);
+}
+
+.calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 132, 61, 0.4);
+}
+
+/* Result Display */
+.result-display {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ad Box */
+.ad-box {
+  width: 728px;
+  height: 90px;
+  max-width: 100%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1023px) {
+  .ad-box {
+    width: 100%;
+    height: 100px;
+  }
+  
+  .currency-input-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .amount-display {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .calc-card {
+    padding: 1.5rem;
+  }
+  
+  .ad-box {
+    height: 120px;
+  }
+  
+  .amount-input {
+    font-size: 1.25rem;
+    width: 5rem;
+  }
+}
+
+/* Info Text */
+.info-text {
+  direction: rtl;
+}
+
+/* RTL Support for Dropdowns */
+:host ::ng-deep .p-select-items {
+  direction: rtl;
+  text-align: right;
+}
+
+:host ::ng-deep .p-select-item {
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .p-select-item:hover {
+  background: rgba(0, 132, 61, 0.1);
+}
+
+:host ::ng-deep .p-select-item.p-highlight {
+  background: rgba(0, 132, 61, 0.2);
+  color: #00843D;
+}
+
+/* Currency Input Group Hover Effect */
+.currency-input-group:focus-within {
+  border-color: #00843D;
+  box-shadow: 0 0 0 3px rgba(0, 132, 61, 0.1);
+}
+
+/* Result Icon */
+.result-icon {
+  flex-shrink: 0;
+}

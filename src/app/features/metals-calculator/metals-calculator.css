@@ -1,0 +1,353 @@
+/* What is Calculator Section */
+.what-is-calculator {
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+/* Gold Circle Card Container */
+.gold-circle-card {
+  max-width: 600px;
+}
+
+/* ============================================
+   Golden Oval Ring with 3D Orbit Animation
+   ============================================ */
+
+/* Main wrapper with perspective */
+.orbit-wrapper {
+  position: relative;
+  width: 520px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+/* Ring container - handles 3D rotation */
+.orbit-ring-container {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  transform-style: preserve-3d;
+  animation: orbitRotate 8s linear infinite;
+}
+
+/* The oval ring - using solid border */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 8px solid #D4AF37;
+  background: transparent;
+  transform: rotateX(75deg);
+  box-shadow: 
+    0 0 20px rgba(212, 175, 55, 0.5),
+    0 0 40px rgba(212, 175, 55, 0.3),
+    inset 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* Gradient effect overlay */
+.orbit-ring::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 8px solid transparent;
+  border-top-color: #E8C547;
+  border-right-color: #C9A227;
+  border-bottom-color: #B8941A;
+  border-left-color: #E8C547;
+}
+
+/* Card content - stays fixed in center */
+.card-content {
+  position: relative;
+  z-index: 10;
+  max-width: 380px;
+  padding: 20px;
+}
+
+/* 3D Orbit animation */
+@keyframes orbitRotate {
+  0% {
+    transform: rotateY(0deg) rotateX(20deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(20deg);
+  }
+}
+
+/* Calculator Icon */
+.calculator-icon img {
+  filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+}
+
+/* Gold Colors */
+.text-gold-dark {
+  color: #B8941A;
+}
+
+.text-gold-medium {
+  color: #C9A227;
+}
+
+/* Ad Placeholder */
+.ad-placeholder {
+  order: 1;
+}
+
+.ad-box {
+  width: 300px;
+  height: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1023px) {
+  .ad-placeholder {
+    order: 2;
+  }
+  
+  .ad-box {
+    width: 100%;
+    max-width: 350px;
+    height: 300px;
+  }
+  
+  .orbit-wrapper {
+    width: 420px;
+    height: 380px;
+  }
+  
+  .orbit-ring-container {
+    width: 380px;
+    height: 380px;
+  }
+  
+  .card-content {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .orbit-wrapper {
+    width: 340px;
+    height: 320px;
+  }
+  
+  .orbit-ring-container {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .orbit-ring {
+    border-width: 6px;
+  }
+  
+  .orbit-ring::before {
+    border-width: 6px;
+    inset: -6px;
+  }
+  
+  .card-content {
+    max-width: 240px;
+    padding: 15px;
+  }
+  
+  .ad-box {
+    height: 250px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring-container {
+    animation: none;
+    transform: rotateY(30deg) rotateX(20deg);
+  }
+}
+
+/* ============================================
+   Calculator Form Section
+   ============================================ */
+
+.calculator-form-section {
+  background: #0a0a0a;
+  min-height: 600px;
+}
+
+/* Video Background */
+.video-bg-wrapper {
+  overflow: hidden;
+}
+
+.video-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Dark overlay on video */
+.video-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Gold Title Color */
+.text-gold {
+  color: #D4AF37;
+}
+
+/* Form Styling */
+.calculator-form {
+  direction: rtl;
+  /* max-width: 900px; */
+}
+
+/* ============================================
+   PrimeNG Dropdown Styling
+   ============================================ */
+
+:host ::ng-deep .metal-dropdown,
+:host ::ng-deep .currency-dropdown,
+:host ::ng-deep .karat-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .metal-dropdown .p-select,
+:host ::ng-deep .currency-dropdown .p-select,
+:host ::ng-deep .karat-dropdown .p-select {
+  width: 100%;
+  min-height: 56px;
+  border: none;
+  border-radius: 0.5rem;
+  background: white;
+  direction: rtl;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .metal-dropdown .p-select:hover,
+:host ::ng-deep .currency-dropdown .p-select:hover,
+:host ::ng-deep .karat-dropdown .p-select:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+:host ::ng-deep .metal-dropdown .p-select:focus,
+:host ::ng-deep .currency-dropdown .p-select:focus,
+:host ::ng-deep .karat-dropdown .p-select:focus,
+:host ::ng-deep .metal-dropdown .p-select.p-focus,
+:host ::ng-deep .currency-dropdown .p-select.p-focus,
+:host ::ng-deep .karat-dropdown .p-select.p-focus {
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+:host ::ng-deep .p-select-label {
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .p-select-dropdown {
+  padding: 0 0.75rem;
+}
+
+/* RTL Support for Dropdowns */
+:host ::ng-deep .p-select-items {
+  direction: rtl;
+  text-align: right;
+}
+
+:host ::ng-deep .p-select-item {
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .p-select-item:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+:host ::ng-deep .p-select-item.p-highlight {
+  background: rgba(212, 175, 55, 0.2);
+  color: #B8941A;
+}
+
+/* ============================================
+   Weight Input Styling
+   ============================================ */
+
+.weight-input {
+  min-height: 56px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.weight-input:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.weight-input:focus {
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+/* Hide number input spinners */
+.weight-input::-webkit-outer-spin-button,
+.weight-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.weight-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* ============================================
+   Calculate Button
+   ============================================ */
+
+.calculate-btn {
+  box-shadow: 0 4px 20px rgba(0, 132, 61, 0.3);
+  min-width: 200px;
+}
+
+.calculate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 132, 61, 0.4);
+}
+
+/* ============================================
+   Result Display
+   ============================================ */
+
+.result-display {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Result Icon */
+.result-icon {
+  background: linear-gradient(135deg, #E8C547 0%, #D4AF37 50%, #B8941A 100%);
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 640px) {
+  .weight-input {
+    font-size: 1rem;
+  }
+  
+  .calculate-btn {
+    min-width: 160px;
+    padding: 0.875rem 2rem;
+    font-size: 1.125rem;
+  }
+}

@@ -18,7 +18,11 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/department/department').then(m => m.Department),
             },
             {
-                path: 'gold-calculator',
+                path: 'metals-calculator',
+                loadComponent: () => import('./features/metals-calculator/metals-calculator').then(m => m.MetalsCalculator),
+            },
+            {
+                path: 'gold-price',
                 loadComponent: () => import('./features/gold-calculator/gold-calculator').then(m => m.GoldCalculator),
             },
             {

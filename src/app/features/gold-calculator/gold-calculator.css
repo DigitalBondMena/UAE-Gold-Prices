@@ -1,0 +1,198 @@
+/* Gold Calculator Section */
+.gold-calc-section {
+  min-height: 60vh;
+}
+
+/* Calculator Card */
+.calc-card {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* PrimeNG Dropdown Styling */
+:host ::ng-deep .currency-dropdown,
+:host ::ng-deep .karat-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .currency-dropdown .p-select,
+:host ::ng-deep .karat-dropdown .p-select {
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: white;
+  direction: rtl;
+}
+
+:host ::ng-deep .currency-dropdown .p-select:hover,
+:host ::ng-deep .karat-dropdown .p-select:hover {
+  border-color: #D4AF37;
+}
+
+:host ::ng-deep .currency-dropdown .p-select:focus,
+:host ::ng-deep .karat-dropdown .p-select:focus,
+:host ::ng-deep .currency-dropdown .p-select.p-focus,
+:host ::ng-deep .karat-dropdown .p-select.p-focus {
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+:host ::ng-deep .p-select-label {
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .p-select-dropdown {
+  padding: 0 0.75rem;
+}
+
+/* PrimeNG InputNumber Styling */
+:host ::ng-deep .weight-input-number {
+  width: 100%;
+}
+
+:host ::ng-deep .weight-input-number .p-inputnumber {
+  width: 100%;
+}
+
+:host ::ng-deep .weight-input-number .p-inputtext {
+  min-height: 56px;
+  border: 1px solid #e5e7eb;
+  border-radius: 0;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  direction: rtl;
+}
+
+:host ::ng-deep .weight-input-number .p-inputtext:hover {
+  border-color: #D4AF37;
+}
+
+:host ::ng-deep .weight-input-number .p-inputtext:focus {
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+:host ::ng-deep .weight-input-number .p-inputnumber-button {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #6b7280;
+  width: 3rem;
+  transition: all 0.2s ease;
+}
+
+:host ::ng-deep .weight-input-number .p-inputnumber-button:hover {
+  background: #D4AF37;
+  border-color: #D4AF37;
+  color: white;
+}
+
+:host ::ng-deep .weight-input-number .p-inputnumber-button-up {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+:host ::ng-deep .weight-input-number .p-inputnumber-button-down {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Gold Color Classes */
+.text-gold {
+  color: #D4AF37;
+}
+
+.text-gold-dark {
+  color: #B8941A;
+}
+
+.bg-gold {
+  background-color: #D4AF37;
+}
+
+.border-gold {
+  border-color: #D4AF37;
+}
+
+/* Calculate Button */
+.calc-btn {
+  min-width: 200px;
+  box-shadow: 0 4px 20px rgba(0, 132, 61, 0.3);
+}
+
+.calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 132, 61, 0.4);
+}
+
+/* Result Display */
+.result-display {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ad Box */
+.ad-box {
+  width: 728px;
+  height: 90px;
+  max-width: 100%;
+}
+
+/* Karat Icon */
+.karat-icon-small {
+  background: linear-gradient(135deg, #E8C547 0%, #D4AF37 50%, #B8941A 100%);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1023px) {
+  .ad-box {
+    width: 100%;
+    height: 100px;
+  }
+}
+
+@media (max-width: 640px) {
+  .calc-card {
+    padding: 1.5rem;
+  }
+  
+  :host ::ng-deep .weight-input-number .p-inputtext {
+    font-size: 1rem;
+  }
+  
+  .ad-box {
+    height: 120px;
+  }
+}
+
+/* Info Text */
+.info-text {
+  direction: rtl;
+}
+
+/* RTL Support for Dropdowns */
+:host ::ng-deep .p-select-items {
+  direction: rtl;
+  text-align: right;
+}
+
+:host ::ng-deep .p-select-item {
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .p-select-item:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+:host ::ng-deep .p-select-item.p-highlight {
+  background: rgba(212, 175, 55, 0.2);
+  color: #B8941A;
+}

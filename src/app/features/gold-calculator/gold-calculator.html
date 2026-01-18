@@ -1,1 +1,171 @@
-<p>gold-calculator works!</p>
+<app-hero-section 
+    [title]="' تقدير فوري لقيمة المعادن وفق أسعار السوق '"
+    [subtitle]=" 'احسب قيمة المعادن بسهولة ودقة من خلال حاسبة تعتمد على الأسعار المباشرة وتحديثات السوق المستمرة.'"
+    [backgroundImage]="'/images/hero/gold-price.webp'">
+</app-hero-section>
+
+<!-- Gold Calculator Section -->
+<section class="gold-calc-section py-16 md:py-24  -translate-y-[30%] ">
+    <div class="container mx-auto px-5 lg:px-20 ">
+        <!-- Calculator Card -->
+        <div class="calc-card bg-white rounded-2xl shadow-2xl p-6 md:p-10 max-w-4xl mx-auto ">
+            
+            <!-- Form Row -->
+            <div class="flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8">
+                
+                <!-- Currency Selector (From) -->
+                <div class="flex-1">
+                    <label class="block text-gray-500 text-sm mb-2 text-right">العملة</label>
+                    <p-select
+                        [options]="currencies()"
+                        [(ngModel)]="selectedCurrency"
+                        name="currency"
+                        optionLabel="name"
+                        placeholder="اختر العملة"
+                        styleClass="currency-dropdown w-full "
+                        [showClear]="false"
+                        [loading]="isLoadingCurrencies()"
+                        class="font-medium! text-gray-700 placeholder-gray-400">
+                        <ng-template #selectedItem let-selected>
+                            <div class="flex items-center gap-3 justify-start ">
+                                @if (selected.flag) {
+                                    <img 
+                                        [src]="'https://flagcdn.com/w40/' + selected.flag + '.png'" 
+                                        [alt]="selected.code" 
+                                        class="w-6 h-6 rounded-full object-cover" />
+                                } @else {
+                                    <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center">
+                                        <span class="text-xs font-bold text-gray-600">{{ selected.code.slice(0, 2) }}</span>
+                                    </div>
+                                }
+                                <span class="font-medium">{{ selected.name }}</span>
+                            </div>
+                        </ng-template>
+                        <ng-template #item let-currency>
+                            <div class="flex items-center gap-3 justify-between py-1">
+                                @if (currency.flag) {
+                                    <img 
+                                        [src]="'https://flagcdn.com/w40/' + currency.flag + '.png'" 
+                                        [alt]="currency.code" 
+                                        class="w-5 h-5 rounded-full object-cover" />
+                                } @else {
+                                    <div class="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
+                                        <span class="text-[10px] font-bold text-gray-600">{{ currency.code.slice(0, 2) }}</span>
+                                    </div>
+                                }
+                                <span>{{ currency.name }} ({{ currency.code }})</span>
+                            </div>
+                        </ng-template>
+                    </p-select>
+                </div>
+
+                <!-- Vertical Divider (Desktop) -->
+                <div class="hidden lg:block w-px bg-gray-200 self-stretch"></div>
+                
+                <!-- Horizontal Divider (Mobile) -->
+                <div class="lg:hidden h-px bg-gray-200 w-full"></div>
+
+                <!-- Weight Input -->
+                <div class="flex-1">
+                    <label class="block text-gray-500 text-sm mb-2 text-right">الوزن</label>
+                    <input 
+                        type="number"
+                        [(ngModel)]="weight"
+                        name="weight"
+                        placeholder="اكتب وزن المعدن بالجرام"
+                        class="weight-input w-full px-5 py-4 bg-white border border-gray-200 rounded-lg font-medium text-right text-gray-700 text-base placeholder-gray-400 focus:outline-none focus:border-gold" />
+                </div>
+
+                <!-- Vertical Divider (Desktop) -->
+                <div class="hidden lg:block w-px bg-gray-200 self-stretch"></div>
+                
+                <!-- Horizontal Divider (Mobile) -->
+                <div class="lg:hidden h-px bg-gray-200 w-full"></div>
+
+                <!-- Karat Selector -->
+                <div class="flex-1">
+                    <label class="block text-gray-500 text-sm mb-2 text-right">العيار</label>
+                    <p-select
+                        [options]="karats()"
+                        [(ngModel)]="selectedKarat"
+                        name="karat"
+                        optionLabel="name"
+                        placeholder="اختر عيار الذهب"
+                        styleClass="karat-dropdown w-full"
+                        [showClear]="true"
+                        [loading]="isLoadingKarats()">
+                        <ng-template #selectedItem let-selected>
+                            <div class="flex items-center gap-3 justify-start">
+                                <span class="font-medium text-lg">{{ selected.value }}</span>
+                            </div>
+                        </ng-template>
+                        <ng-template #item let-karat>
+                            <div class="flex items-center gap-3 justify-start py-1">
+                                <span class="font-medium">{{ karat.name }}</span>
+                            </div>
+                        </ng-template>
+                    </p-select>
+                </div>
+            </div>
+
+            <!-- Calculate Button / Result Display -->
+            <div class="mt-8 flex justify-center">
+                @if (showResult() && result() !== null) {
+                    <!-- Result Display (replaces button) -->
+                    <div class="result-display w-full p-6 rounded-xl border border-yellow-200 cursor-pointer hover:shadow-lg transition-all duration-300"
+                         (click)="resetCalculator()">
+                        <div class="flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="text-gray-600 text-sm font-medium!">سعر الذهب</span>
+                                <p class="text-2xl md:text-3xl font-bold text-gold-dark">
+                                    {{ formatPrice(result()!) }} 
+                                    <span class="text-xl">{{ selectedCurrency?.code }}</span>
+                                </p>
+                                <p class="text-lg text-gray-600 mt-2 font-medium!">
+                                    {{ weight }} جرام × عيار {{ selectedKarat?.value }}
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-center text-gray-400 text-sm mt-3 font-medium!">اضغط لإعادة الحساب</p>
+                    </div>
+                } @else {
+                    <!-- Calculate Button -->
+                    <button 
+                        type="button" 
+                        (click)="calculatePrice()"
+                        [disabled]="isCalculating()"
+                        class="calc-btn px-10 py-4 bg-[#00843D] hover:bg-[#006B2E] text-white text-xl font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+                        @if (isCalculating()) {
+                            <span class="flex items-center gap-2">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                جاري الحساب...
+                            </span>
+                        } @else {
+                            احسب السعر
+                        }
+                    </button>
+                }
+            </div>
+        </div>
+
+        <!-- Info Text -->
+        <div class="info-text flex items-center justify-center gap-2 my-10 text-gray-500 text-sm ">
+            <span>نستخدم سعر الصرف المتوسط في خدمة سعر العملة لدينا. هذه المعلومات لأغراض إعلامية فقط.</span>
+            <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+
+        <!-- Ad Placeholder -->
+        <div class="ad-section mt-12 flex justify-center">
+            <div class="ad-box bg-gray-200 rounded-xl flex items-center justify-center">
+                <span class="text-gray-600 text-2xl font-medium">اعلان</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+

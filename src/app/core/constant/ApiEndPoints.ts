@@ -10,13 +10,11 @@ export const API_END_POINTS = {
   CONTACT_INFO: 'contact/information',
   SUBMIT_CONTACT_FORM: 'contact/submit',
   //!Calculators
-  //!Gold Calculator
-  //!Calculate Gold Price in any country with any weight and purity
-  GOLD_CALCULATOR: 'metals/calculate',
-  //!Gold Price Calculator
-  //!Calculate Gold Price in any country and purity
+  //!Calculate Gold and metals Price in any country and purity 
   GOLD_PRICE_CALCULATOR: 'metals/prices',
   //!Currency Calculator
   CURRENCY_CONVERTER: 'currency/convert',
   CURRENCY_COUNTRY_LIST: 'currency/list',
+  GOLD_LIST:'gold/list',
+  METALS_LIST:'metal/list',
 };
