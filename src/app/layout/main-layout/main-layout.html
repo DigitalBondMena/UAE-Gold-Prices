@@ -1,3 +1,8 @@
 <app-navbar class="flex justify-center items-center"></app-navbar>
 <router-outlet class="overflow-hidden"></router-outlet>
-<app-footer></app-footer>
+<!-- Defer footer to avoid blocking critical path with contact/information API -->
+@defer (on viewport; prefetch on idle) {
+  <app-footer></app-footer>
+} @placeholder {
+  <footer class="bg-[#1a1a1a] h-64"></footer>
+}

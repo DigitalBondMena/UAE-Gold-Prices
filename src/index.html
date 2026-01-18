@@ -60,19 +60,20 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="images/logo/logo.webp">
 
-  <!-- Preconnect to external resources -->
+  <!-- Preconnect to external resources - MUST be early in head -->
   <link rel="preconnect" href="https://dashboard.goldpriceinemirates.com" crossorigin>
   <link rel="dns-prefetch" href="https://dashboard.goldpriceinemirates.com">
 
-  <!-- Preload critical fonts to break the request chain -->
+  <!-- Preload critical fonts only (Regular body + Bold headings) -->
   <link rel="preload" href="fonts/tajawal/Tajawal-Regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/tajawal/Tajawal-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/tajawal/Tajawal-Bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/markazi/MarkaziText-Bold.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Preload LCP images for faster discovery -->
   <link rel="preload" as="image" href="images/logo/logo.webp" fetchpriority="high" type="image/webp">
   <link rel="preload" as="image" href="images/hero/hero.webp" fetchpriority="high" type="image/webp">
+
+  <!-- Prefetch home API for faster initial data -->
+  <link rel="prefetch" href="https://dashboard.goldpriceinemirates.com/api/home" as="fetch" crossorigin>
 
   <!-- Structured Data - Organization -->
   <script type="application/ld+json">
