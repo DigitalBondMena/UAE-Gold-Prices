@@ -30,7 +30,7 @@
                             [disabled]="showResult()"
                             [loading]="isLoadingCurrencies()"
                             (onChange)="onCurrencyChange()"
-                            class="font-bold! text-gray-700 placeholder-gray-400 rounded-lg! py-1">
+                            class="font-bold! text-gray-700 placeholder-gray-400 rounded-lg! text-base">
                             <ng-template #selectedItem let-selected>
                                 <div class="flex items-center gap-3 justify-start ">
                                     @if (selected.flag) {
@@ -84,7 +84,7 @@
                         placeholder="اكتب وزن المعدن بالجرام"
                         [disabled]="showResult()"
                         (blur)="onWeightBlur()"
-                        class="weight-input w-full px-5 py-4 bg-white border rounded-lg font-bold! text-right text-gray-700 text-base placeholder-gray-400 focus:outline-none focus:border-gold disabled:opacity-60 disabled:cursor-not-allowed"
+                        class="weight-input w-full px-4 bg-white border rounded-lg font-bold! text-right text-gray-700 text-base placeholder-gray-400 focus:outline-none focus:border-gold hover:border-gold disabled:opacity-60 disabled:cursor-not-allowed"
                         [class.border-gray-200]="!isWeightInvalid()"
                         [class.border-red-500]="isWeightInvalid()" />
                     @if (isWeightInvalid()) {
@@ -100,7 +100,7 @@
 
                 <!-- Karat Selector -->
                 <div class="flex-1">
-                    <label class="block text-gray-500 font-bold! text-sm mb-2 text-right">العيار </label>
+                    <label class="block text-gray-500 font-bold! text-sm mb-2 text-right ">العيار </label>
                     <div [class.border-red-500]="isKaratInvalid()" 
                          [class.rounded-lg]="isKaratInvalid()"
                          class="transition-colors">
@@ -115,21 +115,21 @@
                             [disabled]="showResult()"
                             [loading]="isLoadingKarats()"
                             (onChange)="onKaratChange()"
-                            class="font-bold! text-gray-700 placeholder-gray-400 rounded-lg! ">
+                            class="font-bold! text-gray-700 text-base placeholder-gray-400 rounded-lg!">
                             <ng-template #selectedItem let-selected>
                                 <div class="flex items-center gap-3 justify-start">
                                     <span class="font-bold! text-lg">{{ selected.value }}</span>
                                 </div>
                             </ng-template>
                             <ng-template #item let-karat>
-                                <div class="flex items-center gap-3 justify-start py-1">
+                                <div class="flex items-center gap-3 justify-start ">
                                     <span class="font-bold!">{{ karat.name }}</span>
                                 </div>
                             </ng-template>
                         </p-select>
                     </div>
                     @if (isKaratInvalid()) {
-                        <p class="text-red-500 text-xs mt-1 text-right">يرجى اختيار العيار</p>
+                        <p class="text-red-500 text-xs font-bold! mt-1 text-right">يرجى اختيار العيار</p>
                     }
                 </div>
             </div>

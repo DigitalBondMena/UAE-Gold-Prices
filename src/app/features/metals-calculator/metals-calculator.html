@@ -50,7 +50,7 @@
 </section>
 
 <!-- Gold Calculator Form Section -->
-<section class="calculator-form-section relative py-16 md:py-24 overflow-hidden">
+<section class="calculator-form-section relative py-16 md:py-24 pb-40! ">
     <!-- Video Background -->
     <div class="video-bg-wrapper absolute inset-0 z-0">
         <video 
@@ -132,7 +132,7 @@
                             [disabled]="showResult()"
                             [loading]="isLoadingGold()"
                             (onChange)="onKaratChange()"
-                            class="font-bold! text-gray-700 placeholder-gray-400 py-3.5 px-4 rounded-lg!">
+                            class="font-bold! text-gray-700 placeholder-gray-400 py-3.5  px-4 rounded-lg!">
                             <ng-template #selectedItem let-selected>
                                 <div class="flex items-center gap-3 justify-start">
                                     <span class="font-bold! text-lg">{{ selected.value }}</span>

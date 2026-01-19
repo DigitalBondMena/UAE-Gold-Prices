@@ -24,7 +24,7 @@
                             <input type="number" [(ngModel)]="amount" name="amount" placeholder="0"
                                 [disabled]="showResult()"
                                 (blur)="onAmountBlur()"
-                                class="amount-input w-24 text-2xl font-bold text-gray-800 text-right bg-transparent border-none outline-none disabled:opacity-60 disabled:cursor-not-allowed" />
+                                class="amount-input w-24 pe-2 text-2xl font-bold text-gray-800 text-right bg-transparent border-none outline-none disabled:opacity-60 disabled:cursor-not-allowed" />
                             <span class="text-sm text-gray-500">{{ fromCurrency?.code ?? 'د.إ' }}</span>
                         </div>
 
