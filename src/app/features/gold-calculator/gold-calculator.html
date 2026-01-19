@@ -64,7 +64,7 @@
                         </p-select>
                     </div>
                     @if (isCurrencyInvalid()) {
-                        <p class="text-red-500 text-xs mt-1 text-right">يرجى اختيار العملة</p>
+                        <p class="text-red-500 text-xs font-bold! mt-1 text-right">يرجى اختيار العملة</p>
                     }
                 </div>
 
@@ -88,7 +88,7 @@
                         [class.border-gray-200]="!isWeightInvalid()"
                         [class.border-red-500]="isWeightInvalid()" />
                     @if (isWeightInvalid()) {
-                        <p class="text-red-500 text-xs mt-1 text-right">يرجى إدخال الوزن</p>
+                        <p class="text-red-500 text-xs font-bold! mt-1 text-right">يرجى إدخال الوزن</p>
                     }
                 </div>
 

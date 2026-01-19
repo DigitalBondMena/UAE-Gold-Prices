@@ -238,3 +238,21 @@
   background: rgba(212, 175, 55, 0.2);
   color: #B8941A;
 }
+
+/* Validation Error Styling */
+.border-red-500 :host ::ng-deep .p-select,
+.border-red-500 .p-select,
+:host ::ng-deep .border-red-500 .p-select {
+  border: 2px solid #ef4444 !important;
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+.border-red-500.rounded-lg {
+  border: 2px solid #ef4444 !important;
+  border-radius: 0.5rem;
+}
+
+/* Weight Input Validation Error */
+.weight-input.border-red-500 {
+  border: 2px solid #ef4444 !important;
+}

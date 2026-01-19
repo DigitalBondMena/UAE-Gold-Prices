@@ -197,6 +197,15 @@
   color: #00843D;
 }
 
+/* Validation Error Styling */
+.border-red-500 {
+  border-color: #ef4444 !important;
+}
+
+.currency-input-group.border-red-500 {
+  border: 1px solid #ef4444 !important;
+}
+
 /* Currency Input Group Hover Effect */
 .currency-input-group:focus-within {
   border-color: #00843D;
