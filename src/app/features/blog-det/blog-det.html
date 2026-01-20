@@ -53,7 +53,13 @@
 
                     <ul class="toc-list">
                         @for (section of sections(); track section.id; let i = $index) {
-                        <li class="toc-item" [class.toc-item-active]="isSectionActive(i)"
+                        <li class="toc-item" 
+                            [class.toc-item-active]="isSectionActive(i)"
+                            [class.toc-level-2]="section.level === 2"
+                            [class.toc-level-3]="section.level === 3"
+                            [class.toc-level-4]="section.level === 4"
+                            [class.toc-level-5]="section.level === 5"
+                            [class.toc-level-6]="section.level === 6"
                             (click)="navigateToSection(i)">
                             <span class="toc-number">{{ i + 1 }}</span>
                             <span class="toc-text" [innerHTML]="section.title | safeHtml"></span>

@@ -5,24 +5,51 @@
 </app-hero-section>
 
 <!-- Search Section -->
-<section class="search-section bg-white">
+<section class="search-section bg-[#BC99000A]">
   <div class="container mx-auto px-5 lg:px-20 translate-y-[-50%]">
-    <div class="search-box flex items-center gap-3 bg-white rounded-xl px-6 py-4 max-w-4xl mx-auto shadow-2xl">
-      <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-      </svg>
-      <input 
-        type="text" 
-        placeholder="ما الموضوع الذي تريد معرفته؟"
-        class="flex-1 bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base"
-        [ngModel]="searchQuery()"
-        (ngModelChange)="searchQuery.set($event)"
-        (keyup.enter)="onSearch()" />
-      <button 
-        class="search-btn bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#006d32] transition-colors whitespace-nowrap"
-        (click)="onSearch()">
-        ابحث الآن
-      </button>
+    <div class="search-container relative max-w-4xl mx-auto">
+      <div class="search-box flex items-center gap-3 bg-white rounded-xl px-6 py-4 shadow-2xl">
+        <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <input 
+          type="text" 
+          placeholder="ما الموضوع الذي تريد معرفته؟"
+          class="flex-1 bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base"
+          [ngModel]="searchInput()"
+          (ngModelChange)="onSearchInputChange($event)"
+          (focus)="onSearchFocus()"
+          (keyup.enter)="onSearch()" />
+        <button 
+          class="search-btn bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#006d32] transition-colors whitespace-nowrap"
+          (click)="onSearch()">
+          ابحث الآن
+        </button>
+      </div>
+      
+      <!-- Search Suggestions Dropdown -->
+      @if (showSearchDropdown()) {
+        <div class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50">
+          @if (searchSuggestions().length > 0) {
+            <div class="px-4 py-2 bg-gray-50 text-xs text-gray-500 font-medium">المقالات</div>
+            @for (blog of searchSuggestions(); track blog.slug) {
+              <button 
+                type="button"
+                class="search-suggestion w-full px-5 py-3 text-right hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 flex items-center gap-3"
+                (click)="selectSuggestion(blog)">
+                <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span class="text-gray-700 text-sm line-clamp-1">{{ blog.title }}</span>
+              </button>
+            }
+          } @else {
+            <div class="px-5 py-4 text-center text-gray-400 text-sm">
+              لا توجد نتائج مطابقة
+            </div>
+          }
+        </div>
+      }
     </div>
   </div>
 </section>

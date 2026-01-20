@@ -1,6 +1,7 @@
 /* Search Section */
-.search-section {
-  border-bottom: 1px solid #f0f0f0;
+
+.search-container {
+  position: relative;
 }
 
 .search-box {
@@ -25,6 +26,26 @@
   min-width: 100px;
 }
 
+/* Search Dropdown */
+.search-dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+  direction: rtl;
+}
+
+.search-suggestion {
+  direction: rtl;
+  cursor: pointer;
+}
+
+.search-suggestion:hover {
+  background-color: #f9fafb;
+}
+
+.search-suggestion:hover span {
+  color: #00843D;
+}
+
 /* Responsive Search */
 @media (max-width: 640px) {
   .search-box {
@@ -42,6 +63,10 @@
   .search-btn {
     width: 100%;
   }
+
+  .search-dropdown {
+    max-height: 300px;
+  }
 }
 
 /* Blog Cards */
@@ -58,14 +83,22 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: rgba(30, 30, 30, 0.85);
-  backdrop-filter: blur(4px);
+  background: rgba(30, 30, 30, 0.4);
+  backdrop-filter: blur(10px);
   color: #fff;
   font-size: 0.9rem;
   font-weight: 500;
-  padding: 10px 18px;
+  padding: 12px 18px;
   border-radius: 0 16px 0 16px;
   z-index: 5;
+  max-width: 200px;
+}
+
+.category-badge span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Line Clamp Utilities */

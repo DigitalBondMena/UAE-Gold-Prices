@@ -5,24 +5,71 @@
 </app-hero-section>
 
 <!-- Search Section -->
-<section class="search-section bg-white  ">
-  <div class="container mx-auto px-5 lg:px-20 translate-y-[-50%] ">
-    <div class="search-box flex items-center gap-3 bg-white  rounded-xl px-6 py-4 max-w-4xl mx-auto shadow-2xl">
-      <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-      </svg>
-      <input 
-        type="text" 
-        placeholder="ما الموضوع الذي تريد معرفته؟"
-        class="flex-1 bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base"
-        [ngModel]="searchInput()"
-        (ngModelChange)="searchInput.set($event)"
-        (keyup.enter)="onSearch()" />
-      <button 
-        class="search-btn bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#006d32] transition-colors whitespace-nowrap"
-        (click)="onSearch()">
-        ابحث الآن
-      </button>
+<section class="search-section bg-[#BC99000A]">
+  <div class="container mx-auto px-5 lg:px-20 translate-y-[-50%]">
+    <div class="search-container relative max-w-4xl mx-auto">
+      <div class="search-box flex items-center gap-3 bg-white rounded-xl px-6 py-4 shadow-2xl">
+        <svg class="w-5 h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <input 
+          type="text" 
+          placeholder="ما الموضوع الذي تريد معرفته؟"
+          class="flex-1 bg-transparent border-none outline-none text-gray-700 placeholder-gray-400 text-base"
+          [ngModel]="searchInput()"
+          (ngModelChange)="onSearchInputChange($event)"
+          (focus)="onSearchFocus()"
+          (keyup.enter)="onSearch()" />
+        <button 
+          class="search-btn bg-[#00843D] text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-[#006d32] transition-colors whitespace-nowrap"
+          (click)="onSearch()">
+          ابحث الآن
+        </button>
+      </div>
+      
+      <!-- Search Suggestions Dropdown -->
+      @if (showSearchDropdown()) {
+        <div class="search-dropdown absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50">
+          <!-- Department Suggestions -->
+          @if (departmentSuggestions().length > 0) {
+            <div class="px-4 py-2 bg-gray-50 text-xs text-gray-500 font-medium">الأقسام</div>
+            @for (dept of departmentSuggestions(); track dept) {
+              <button 
+                type="button"
+                class="search-suggestion w-full px-5 py-3 text-right hover:bg-gray-50 transition-colors border-b border-gray-100 flex items-center gap-3"
+                (click)="selectDepartmentSuggestion(dept)">
+                <svg class="w-4 h-4 text-[#00843D] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                <span class="text-gray-700 text-sm">{{ dept }}</span>
+              </button>
+            }
+          }
+          
+          <!-- Blog Suggestions -->
+          @if (searchSuggestions().length > 0) {
+            <div class="px-4 py-2 bg-gray-50 text-xs text-gray-500 font-medium">المقالات</div>
+            @for (blog of searchSuggestions(); track blog.slug) {
+              <button 
+                type="button"
+                class="search-suggestion w-full px-5 py-3 text-right hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 flex items-center gap-3"
+                (click)="selectSuggestion(blog)">
+                <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span class="text-gray-700 text-sm line-clamp-1">{{ blog.title }}</span>
+              </button>
+            }
+          }
+          
+          <!-- No Results -->
+          @if (searchSuggestions().length === 0 && departmentSuggestions().length === 0) {
+            <div class="px-5 py-4 text-center text-gray-400 text-sm">
+              لا توجد نتائج مطابقة
+            </div>
+          }
+        </div>
+      }
     </div>
   </div>
 </section>
@@ -91,25 +138,32 @@
                 width="400" 
                 height="256" />
               <!-- Category Badge -->
-              <div class="category-badge">
-                <span>{{ blog.small_text }}</span>
-              </div>
+              @if (blog.small_text) {
+                <div class="category-badge">
+                  <span>{{ blog.small_text }}</span>
+                </div>
+              }
             </div>
             <div class="p-6">
               <h4 class="text-[#3C2E00] font-bold text-xl mb-3 leading-relaxed line-clamp-2">
                 {{ blog.title }}
               </h4>
-              @if (blog.publish_at_ar) {
+              @if (blog.small_text) {
                 <p class="text-gray-500 text-sm mb-4 leading-relaxed line-clamp-3">
-                  تحليل شامل لاتجاهات أسعار الذهب عالمياً والعوامل الاقتصادية والجيوسياسية المؤثرة عليه مع نظرة مستقبلية...
+                  {{ blog.small_text }}
                 </p>
               }
-              <span class="read-more flex items-center gap-2 text-[#00843D] font-medium text-base">
-                <span>اقرأ المقالة</span>
-                <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </span>
+              <div class="flex items-center justify-between">
+                @if (blog.publish_at_ar) {
+                  <span class="text-gray-400 text-sm">{{ blog.publish_at_ar }}</span>
+                }
+                <span class="read-more flex items-center gap-2 text-[#00843D] font-medium text-base">
+                  <span>اقرأ المقالة</span>
+                  <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </span>
+              </div>
             </div>
           </a>
         } @empty {
@@ -132,7 +186,7 @@
     }
 
     <!-- PrimeNG Pagination -->
-    @if (totalRecords() > perPage()) {
+    @if (totalRecords() > 0) {
       <div class="pagination-wrapper flex justify-center mt-12">
         <p-paginator
           [first]="first()"

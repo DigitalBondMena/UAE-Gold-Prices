@@ -2,7 +2,7 @@ export const API_END_POINTS = {
   HOME: 'home',
   ABOUT: 'about',
   DEPARTMENTS: 'departments',
-  DEPARTMENT_BLOGS: 'departments/{slug}',
+  DEPARTMENT_BLOGS: 'department/{slug}',
   BLOGS: 'blogs',
   BLOG_DETAILS: 'blog/{slug}',
   PRIVACYPOLICY: 'privacy',

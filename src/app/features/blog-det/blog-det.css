@@ -111,6 +111,31 @@
   background-color: #D0A51A;
 }
 
+/* TOC Level Indentation (RTL - indent from right) */
+.toc-level-2 {
+  padding-right: 1rem;
+}
+
+.toc-level-3 {
+  padding-right: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.toc-level-4 {
+  padding-right: 2rem;
+  font-size: 0.9rem;
+}
+
+.toc-level-5 {
+  padding-right: 2.5rem;
+  font-size: 0.85rem;
+}
+
+.toc-level-6 {
+  padding-right: 3rem;
+  font-size: 0.8rem;
+}
+
 /* Sidebar Cards */
 .sidebar-card {
   position: relative;
@@ -177,7 +202,7 @@
 .blog-content {
   color: #3C2E00;
   line-height: 1.9;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   direction: rtl !important;
   text-align: justify !important;
   overflow-wrap: break-word !important;
@@ -187,7 +212,7 @@
 .blog-content *,
 .blog-content *::before,
 .blog-content *::after {
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 .blog-content h1,
@@ -206,10 +231,11 @@
 
 .blog-content span,
 .blog-content span[style] {
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   direction: rtl !important;
   color: #3C2E00 !important;
   font-size: 1.1rem !important;
+  text-align: justify !important;
 }
 
 .blog-content *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(img):not(table):not(th):not(td) {
@@ -217,14 +243,17 @@
 }
 
 .blog-content p,
-.blog-content p[style] {
+.blog-content p[style],
+.blog-content div,
+.blog-content div[style] {
   margin-bottom: 1.5rem !important;
   font-size: 1.1rem !important;
   line-height: 1.9 !important;
   color: #3C2E00 !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   direction: rtl !important;
   text-align: justify !important;
+  text-justify: inter-word !important;
 }
 
 .blog-content h1 {
@@ -282,14 +311,14 @@
 .blog-content b {
   color: #3C2E00 !important;
   font-weight: bold !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 .blog-content a {
   color: #D0A51A !important;
   text-decoration: underline !important;
   transition: color 0.3s ease !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 .blog-content a:hover {
@@ -299,13 +328,13 @@
 .blog-content em,
 .blog-content i {
   font-style: italic !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   color: #3C2E00 !important;
 }
 
 .blog-content u {
   text-decoration: underline !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   color: #3C2E00 !important;
 }
 
@@ -313,7 +342,7 @@
   background-color: rgba(208, 165, 26, 0.2) !important;
   color: #3C2E00 !important;
   padding: 0.1em 0.3em !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   border-radius: 0.25rem;
 }
 
@@ -322,14 +351,14 @@
   margin: 1.5rem 0 !important;
   padding-right: 2rem !important;
   direction: rtl !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 .blog-content li {
   margin-bottom: 0.75rem !important;
   line-height: 1.9 !important;
   color: #3C2E00 !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   direction: rtl !important;
   font-size: 1.1rem !important;
 }
@@ -369,7 +398,7 @@
   border-collapse: collapse;
   margin: 1.5rem 0;
   direction: rtl;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 .blog-content th,
@@ -377,7 +406,7 @@
   padding: 0.75rem;
   border: 1px solid #ddd;
   text-align: right;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
 }
 
 .blog-content th {
@@ -396,7 +425,7 @@
   position: relative;
   font-size: 1.125rem;
   line-height: 1.8;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   direction: rtl;
 }
 
@@ -419,13 +448,23 @@
 
 .blog-content div {
   direction: rtl !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
   text-align: justify !important;
+  text-justify: inter-word !important;
 }
 
 /* Override any inline styles */
 .blog-content [style] {
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Tajawal', sans-serif !important;
+  text-align: justify !important;
+  text-justify: inter-word !important;
+}
+
+.blog-content p[style],
+.blog-content div[style],
+.blog-content span[style] {
+  text-align: justify !important;
+  text-justify: inter-word !important;
 }
 
 .blog-content h1[style],
@@ -436,6 +475,7 @@
 .blog-content h6[style] {
   font-family: 'Changa', sans-serif !important;
   color: #D0A51A !important;
+  text-align: right !important;
 }
 
 /* Ad Section */
@@ -523,6 +563,25 @@
   margin: 1.5rem 0;
 }
 
+.blog-content h1 {
+  font-size: 1.5rem !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+.blog-content h2,
+.blog-content .section-heading {
+  font-size: 1.5rem !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem !important;
+  font-family: 'Tajawal', sans-serif !important;  }
+.blog-content p {
+  font-size: 1rem !important;
+  
+  font-weight: 500 !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
 /* Responsive */
 @media (max-width: 1024px) {
   .blog-hero-section {
@@ -531,16 +590,24 @@
 
   .blog-content p {
     font-size: 1rem !important;
+    
+    font-weight: 500 !important;
+    font-family: 'Tajawal', sans-serif !important;
   }
 
+  .blog-content h1 {
+    font-size: 1.5rem !important;
+    font-family: 'Tajawal', sans-serif !important;
+  }
   .blog-content h2,
   .blog-content .section-heading {
     font-size: 1.5rem !important;
+    font-family: 'Tajawal', sans-serif !important;
   }
 
   .blog-content h3 {
-    font-size: 1.25rem !important;
-  }
+    font-size: 1.5rem !important;
+    font-family: 'Tajawal', sans-serif !important;  }
 
   .blog-content blockquote,
   .blog-content .quote-section {
@@ -564,19 +631,23 @@
 
   .blog-content p {
     font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    font-family: 'Tajawal', sans-serif !important;
   }
 
   .blog-content h1 {
-    font-size: 1.75rem !important;
+    font-size: 1.5rem !important;
+    font-family: 'Tajawal', sans-serif !important;
   }
 
   .blog-content h2,
   .blog-content .section-heading {
-    font-size: 1.35rem !important;
+    font-size: 1.5rem !important;
   }
 
   .blog-content h3 {
-    font-size: 1.15rem !important;
+    font-size: 1.5rem !important;
+    font-family: 'Tajawal', sans-serif !important;
   }
 
   .blog-content blockquote,

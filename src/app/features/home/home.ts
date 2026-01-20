@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser, isPlatformServer, NgOptimizedImage } from '@angular/common';
 import { Component, computed, effect, ElementRef, HostListener, inject, OnDestroy, OnInit, PLATFORM_ID, signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carousel, CarouselPageEvent } from 'primeng/carousel';
@@ -21,7 +21,7 @@ interface CarouselItem {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, HomeAbout, HomeCategories, HomeCalculator, HomeBlogs, Carousel, Skeleton],
+  imports: [CommonModule, NgOptimizedImage, HomeAbout, HomeCategories, HomeCalculator, HomeBlogs, Carousel, Skeleton],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

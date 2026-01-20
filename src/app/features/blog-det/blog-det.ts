@@ -27,6 +27,7 @@ interface Section {
   title: string;
   content: string;
   index: number;
+  level: number; // 1-6 for h1-h6
 }
 
 @Component({
@@ -94,9 +95,10 @@ export class BlogDet {
 
     if (html) {
       const sectionsList = this.sections();
+      // Match all heading levels h1-h6
       html = html.replace(
-        /<h2([^>]*)>([\s\S]*?)<\/h2>/gi,
-        (match, attributes, content) => {
+        /<h([1-6])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+        (match, level, attributes, content) => {
           const cleanContent = content.replace(/<[^>]*>/g, '').trim();
 
           const sectionIndex = sectionsList.findIndex((s) => {
@@ -140,42 +142,23 @@ export class BlogDet {
             );
           }
 
-          return `<h2${newAttributes}>${content}</h2>`;
+          return `<h${level}${newAttributes}>${content}</h${level}>`;
         }
       );
 
-      // Clean up inline styles
+      // Clean up inline styles - remove font-family, font-size, line-height, color, text-align from inline styles
       html = html.replace(/style\s*=\s*"([^"]*)"/gi, (match, styles) => {
-        let cleanedStyles = styles.replace(
-          /font-family\s*:\s*[^;]+;?\s*/gi,
-          ''
-        );
+        let cleanedStyles = styles
+          .replace(/font-family\s*:\s*[^;]+;?\s*/gi, '')
+          .replace(/font-size\s*:\s*[^;]+;?\s*/gi, '')
+          .replace(/line-height\s*:\s*[^;]+;?\s*/gi, '')
+          .replace(/color\s*:\s*[^;]+;?\s*/gi, '')
+          .replace(/text-align\s*:\s*[^;]+;?\s*/gi, '');
         cleanedStyles = cleanedStyles
           .replace(/;\s*;/g, ';')
           .replace(/^\s*;\s*|\s*;\s*$/g, '');
-        return `style="${cleanedStyles}"`;
+        return cleanedStyles ? `style="${cleanedStyles}"` : '';
       });
-
-      // Force justify text alignment
-      html = html.replace(
-        /style\s*=\s*"([^"]*)text-align\s*:\s*(left|right|center)([^"]*)"/gi,
-        (match, before, align, after) => {
-          const cleanedBefore = before.replace(
-            /text-align\s*:\s*(left|right|center)\s*;?\s*/gi,
-            ''
-          );
-          const cleanedAfter = after.replace(
-            /text-align\s*:\s*(left|right|center)\s*;?\s*/gi,
-            ''
-          );
-          return `style="${cleanedBefore}text-align: justify;${cleanedAfter}"`;
-        }
-      );
-
-      html = html.replace(
-        /text-align\s*:\s*(left|right|center)\s*;?/gi,
-        'text-align: justify;'
-      );
     }
 
     return this.sanitizer.bypassSecurityTrustHtml(html);
@@ -244,17 +227,19 @@ export class BlogDet {
   // ===== LOGIC =====
   extractSections(html: string): void {
     const result: Section[] = [];
-    // Use 'gis' flags: g=global, i=case-insensitive, s=dotAll (. matches newlines)
-    const regex = /<h2[^>]*>([\s\S]*?)<\/h2>/gi;
+    // Match all heading levels h1-h6
+    const regex = /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/gi;
     let match;
 
-    const matches: { index: number; title: string }[] = [];
+    const matches: { index: number; title: string; level: number }[] = [];
     while ((match = regex.exec(html)) !== null) {
-      const title = match[1].replace(/<[^>]*>/g, '').trim();
+      const level = parseInt(match[1], 10);
+      const title = match[2].replace(/<[^>]*>/g, '').trim();
       if (title) {
         matches.push({
           index: match.index,
           title: title,
+          level: level,
         });
       }
     }
@@ -274,6 +259,7 @@ export class BlogDet {
         title: matches[i].title,
         content: html.slice(start, end),
         index: i,
+        level: matches[i].level,
       });
     }
 

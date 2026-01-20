@@ -1,6 +1,7 @@
 /* Search Section */
-.search-section {
-  border-bottom: 1px solid #f0f0f0;
+
+.search-container {
+  position: relative;
 }
 
 .search-box {
@@ -25,6 +26,26 @@
   min-width: 100px;
 }
 
+/* Search Dropdown */
+.search-dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+  direction: rtl;
+}
+
+.search-suggestion {
+  direction: rtl;
+  cursor: pointer;
+}
+
+.search-suggestion:hover {
+  background-color: #f9fafb;
+}
+
+.search-suggestion:hover span {
+  color: #00843D;
+}
+
 /* Responsive Search */
 @media (max-width: 640px) {
   .search-box {
@@ -41,6 +62,10 @@
   
   .search-btn {
     width: 100%;
+  }
+
+  .search-dropdown {
+    max-height: 300px;
   }
 }
 
